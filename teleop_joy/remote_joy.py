@@ -4,6 +4,8 @@ from rclpy.qos import QoSProfile
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 
+
+
 class Remote_joy(Node):
 
     def __init__(self):
@@ -36,6 +38,7 @@ class Remote_joy(Node):
 
         BUTTON_INDEX_Safety_button  = joy_msg.buttons[6]
         BUTTON_INDEX_Emergency      = joy_msg.buttons[7]
+        Emergency_Speed = 0.0
 
 
         if BUTTON_INDEX_Safety_button == 1:
@@ -48,8 +51,9 @@ class Remote_joy(Node):
 
     #elif
         elif BUTTON_INDEX_Emergency == 1:           # 비상정지
-              tw.linear.x  = 0.0
-              tw.angular.z = 0.0
+              tw.linear.x  = Emergency_Speed
+              tw.angular.z = Emergency_Speed
+              self._twist_pub.publish(tw)
     '''
     BUTTON_INDEX_AXES_NUMBER [0] = 좌측 좌,우
     BUTTON_INDEX_AXES_NUMBER [1] = 좌측 상,하
