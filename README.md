@@ -1,10 +1,10 @@
-# ROS2_teleop_joy vr.1
+# ROS2_teleop_joy vr.2
 
 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air
 
 조이스틱을 사용해서 터틀심 or 터틀봇 또는 기타 로봇을 제어 합니다 
 
-버전 1임으로 코드 정리가 아직 안됬습니다.
+버전 2임으로 코드 정리가 아직 안됬습니다.
 
 < 실행 절차 >
 
