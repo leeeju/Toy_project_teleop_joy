@@ -3,9 +3,9 @@
 <package format="3">
   <name>teleop_joy</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="turtle01@todo.todo">turtle01</maintainer>
-  <license>TODO: License declaration</license>
+  <description>TODO: Lee jh hyun</description>
+  <maintainer email="02stu4@gmail.com">turtle01</maintainer>
+  <license>TODO: Apache License</license>
 
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
