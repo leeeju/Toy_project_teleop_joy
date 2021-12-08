@@ -17,10 +17,10 @@ class Remote_joy(Node):
 
         self._twist_pub = self.create_publisher(
             Twist,
-            '/cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
+            'turtle1/cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
             qos_profile)
 
-        #self.__BUTTON_INDEX_AXES_UP   = [0]
+        #self.__BUTTON_INDEX_AXES_UP   = axes[0]
         #self.__BUTTON_INDEX_AXES_DOWN = [1]
         #self.__BUTTON_INDEX_AXES_LT   = [2]
         #self.__BUTTON_INDEX_AXES_RT   = [3]
@@ -34,11 +34,11 @@ class Remote_joy(Node):
         #BUTTON_INDEX_AXES_left      = joy_msg.axes[3]
         BUTTON_INDEX_AXES_right     = joy_msg.axes[0]
 
-        BUTTON_INDEX_LB             = joy_msg.buttons[6]
+        BUTTON_INDEX_Safety_button  = joy_msg.buttons[6]
         BUTTON_INDEX_Emergency      = joy_msg.buttons[7]
 
 
-        if BUTTON_INDEX_LB == 1:
+        if BUTTON_INDEX_Safety_button == 1:
 
             tw.angular.z  = BUTTON_INDEX_AXES_Rotation  # 회전
             tw.linear.x   = BUTTON_INDEX_AXES_up_down   # 전진
@@ -46,11 +46,10 @@ class Remote_joy(Node):
             tw.linear.y   = BUTTON_INDEX_AXES_right     # 우측
             self._twist_pub.publish(tw)
 
-
+    #elif
         elif BUTTON_INDEX_Emergency == 1:           # 비상정지
-              tw.linear.x = 0.0
-              tw.angular.z =  0.0
-
+              tw.linear.x  = 0.0
+              tw.angular.z = 0.0
     '''
     BUTTON_INDEX_AXES_NUMBER [0] = 좌측 좌,우
     BUTTON_INDEX_AXES_NUMBER [1] = 좌측 상,하
