@@ -4,7 +4,7 @@ from rclpy.qos import QoSProfile
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 
-class remotejoy(Node):
+class Remote_joy(Node):
 
     def __init__(self):
         super().__init__('remote_joy')
@@ -17,35 +17,51 @@ class remotejoy(Node):
 
         self._twist_pub = self.create_publisher(
             Twist,
-            '/cmd_vel',      #  'turtle1/cmd_vel' 터틀심test
+            '/cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
             qos_profile)
 
-        self.tw = Twist()
-        self.joy = Joy()
-
+        #self.__BUTTON_INDEX_AXES_UP   = [0]
+        #self.__BUTTON_INDEX_AXES_DOWN = [1]
+        #self.__BUTTON_INDEX_AXES_LT   = [2]
+        #self.__BUTTON_INDEX_AXES_RT   = [3]
 
     def joy_callback(self, joy_msg):
 
-            if joy_msg.buttons[6] == 1:
-                self.tw.angular.z = joy_msg.axes[2]  # 회전
-                self.tw.linear.x  = joy_msg.axes[1]  # 전진
-                self.tw.angular.x = joy_msg.axes[3]
-                #self.tw.linear.y  = joy_msg.axes[2]
-                self._twist_pub.publish(self.tw)
+        tw = Twist()
 
-            elif joy_msg.buttons[7] == 1: # <-- 이거잘 안됨 (비상정지)
-                self.tw.linear.x = self.tw.angular.z =  0.0
+        BUTTON_INDEX_AXES_up_down   = joy_msg.axes[1]
+        BUTTON_INDEX_AXES_Rotation  = joy_msg.axes[2]
+        #BUTTON_INDEX_AXES_left      = joy_msg.axes[3]
+        BUTTON_INDEX_AXES_right     = joy_msg.axes[0]
+
+        BUTTON_INDEX_LB             = joy_msg.buttons[6]
+        BUTTON_INDEX_Emergency      = joy_msg.buttons[7]
+
+
+        if BUTTON_INDEX_LB == 1:
+
+            tw.angular.z  = BUTTON_INDEX_AXES_Rotation  # 회전
+            tw.linear.x   = BUTTON_INDEX_AXES_up_down   # 전진
+            #tw.angular.x  = BUTTON_INDEX_AXES_left     # 죄측
+            tw.linear.y   = BUTTON_INDEX_AXES_right     # 우측
+            self._twist_pub.publish(tw)
+
+
+        elif BUTTON_INDEX_Emergency == 1:           # 비상정지
+              tw.linear.x = 0.0
+              tw.angular.z =  0.0
+
     '''
-        BUTTON_INDEX_AXES_NUMBER [0] = 좌측 좌,우
-        BUTTON_INDEX_AXES_NUMBER [1] = 좌측 상,하
-        BUTTON_INDEX_AXES_NUMBER [2] = 우측 좌,우
-        BUTTON_INDEX_AXES_NUMBER [3] = 우측 상,하
+    BUTTON_INDEX_AXES_NUMBER [0] = 좌측 좌,우
+    BUTTON_INDEX_AXES_NUMBER [1] = 좌측 상,하
+    BUTTON_INDEX_AXES_NUMBER [2] = 우측 좌,우
+    BUTTON_INDEX_AXES_NUMBER [3] = 우측 상,하
     '''
 def main(args=None):
 
     rclpy.init(args=args)
 
-    remote_joy = remotejoy()
+    remote_joy = Remote_joy()
 
     rclpy.spin(remote_joy)
 
@@ -56,3 +72,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
