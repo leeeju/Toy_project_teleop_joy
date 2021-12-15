@@ -29,16 +29,21 @@ class Remote_joy(Node):
         super().__init__('remote_joy')
         qos_profile = QoSProfile(depth=10)
         self._joy_sub = self.create_subscription(
-            Joy,
-            'joy',
-            self.joy_callback,
-            qos_profile)
+            msg_type = Joy,
+            topic = 'joy',
+            callback = self.joy_callback,
+            qos_profile = qos_profile)
+
 
         self._twist_pub = self.create_publisher(
-            Twist,
-            'turtle1/cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
-            qos_profile)
+            msg_type = Twist,
+            topic = 'cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
+            qos_profile = qos_profile)
 
+        self.action_client = ActionClient(
+            self, action_type = NavigateToPose,
+            action_name='/navigate_to_pose')
+        
     def joy_callback(self, joy_msg):
 
         tw = Twist()
