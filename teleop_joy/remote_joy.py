@@ -103,6 +103,7 @@ class Remote_joy(Node):
         Emergency_Speed = 0.0
         #print("tset1")
 
+
         if BUTTON_INDEX_Safety_button == 1:
 
             tw.angular.z  = BUTTON_INDEX_AXES_Rotation  # 회전
@@ -120,9 +121,8 @@ class Remote_joy(Node):
 
         elif Follow_Waypoints_button_A == 1:      # 좌표가 저장된 버튼 (a)
             print("A지점으로 이동")
-            self.to_pose_msg.pose.position.x    = 1.94
-            self.to_pose_msg.pose.position.y    = 0.712
-
+            self.to_pose_msg.pose.position.x    = 1.78
+            self.to_pose_msg.pose.position.y    = 0.46
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
 
@@ -137,9 +137,8 @@ class Remote_joy(Node):
 
         elif Follow_Waypoints_button_B == 1:     # 좌표가 저장된 버튼 (b)
             print("B지점으로 이동")
-            self.to_pose_msg.pose.position.x    = 0.868
-            self.to_pose_msg.pose.position.y    = -1.91
-
+            self.to_pose_msg.pose.position.x    = 0.615
+            self.to_pose_msg.pose.position.y    = -1.84
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
             self.goal_msg.pose = self.to_pose_msg
@@ -154,9 +153,8 @@ class Remote_joy(Node):
 
         elif Follow_Waypoints_button_X == 1:      # 좌표가 저장된 버튼 (x)
             print("X지점으로 이동")
-            self.to_pose_msg.pose.position.x    = 0.667
-            self.to_pose_msg.pose.position.y    = 1.89
-
+            self.to_pose_msg.pose.position.x    = -1.98
+            self.to_pose_msg.pose.position.y    = -0.011
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
 
@@ -172,15 +170,14 @@ class Remote_joy(Node):
 
             self.action_result_future = self.action_goal_handle.get_result_async()
 
-            return
+            return BUTTON_INDEX_Safety_button
 
 
 
         elif Follow_Waypoints_button_Y == 1:      # 좌표가 저장된 버튼 (y)
             print("Y지점으로 이동")
-            self.to_pose_msg.pose.position.x    = -1.76
-            self.to_pose_msg.pose.position.y    = 0.351
-
+            self.to_pose_msg.pose.position.x    = 0.554
+            self.to_pose_msg.pose.position.y    = 1.81
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
 
@@ -195,7 +192,7 @@ class Remote_joy(Node):
 
             self.action_result_future = self.action_goal_handle.get_result_async()
 
-            return Remote_joy
+            return
 
 
 def main(args=None):
@@ -212,3 +209,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
+
