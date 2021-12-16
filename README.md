@@ -87,4 +87,13 @@ ros2 launch nav2_bringup tb3_simulation_launch.py
 < 로봇이 갑자기 움직이는것을 막기 위하여 LB 버튼을 누르고 조이스틱을 사용해야 움직이도록 만들었습니다 >
 ``` 
 
+<※ 주의 & 팁 ※>
+
+ros를 기본적으로 설치 할때 바이너리 설치를 통해 받아진 패키지와 별도로 깃허브에서 받은 "같은 패키지"가 서로 있으면 충돌이 날 수 있다, 따라서 시스템에 설치 된 패키지를 삭제 할때는 
+
+```bash
+sudo apt remove ros-foxy-teleop-twist-joy
+```
+
+하면 된다
 
