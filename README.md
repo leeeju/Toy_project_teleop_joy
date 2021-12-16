@@ -35,8 +35,45 @@ turtle01@LeeJuHyun:~$ ros2 topic list
 /joy/set_feedback
 /parameter_events
 /rosout
-
 ```
+
+그 다음  ``` ros2 topic echo /joy ``` 를 통해서 /joy의 관련 토픽이 발행되는 각각의 버튼값을 확인합니다 
+
+```bash
+header:
+  stamp:
+    sec: 1639633130
+    nanosec: 794432350
+  frame_id: joy
+axes:
+- -0.0
+- -0.0
+- -0.0
+- -0.0
+- 1.0
+- 1.0
+- 0.0
+- 0.0
+buttons:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+---
+```
+
+조이스틱의 각 버튼을 눌러 보면서 
 
 다운받은 파일을 실행시켜 조이스틱을 움직여 봅니다.
 ```bash
