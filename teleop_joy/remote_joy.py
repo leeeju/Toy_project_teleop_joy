@@ -2,8 +2,8 @@ from typing import Counter
 import rclpy, time
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
-from nav2_msgs.action import NavigateToPose
 from rclpy.action import ActionClient
+from nav2_msgs.action import NavigateToPose
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped
 from action_msgs.msg import GoalStatus
@@ -48,13 +48,15 @@ class Remote_joy(Node):
 
         self.action_client = ActionClient(
             self, action_type = NavigateToPose,
-            action_name='/navigate_to_pose')
+            action_name = '/navigate_to_pose')
 
         #self.setDaemon(True)
-        self.action_goal_handle = None
+
         self.action_result_future = None
         self.action_feedback = None
         self.action_status = None
+        self.__command_type_move = 1
+        self.__command_type_prevention = 2
 
     def __navi_action_feedback_callback(self, msg):
         self.feedback = msg.feedback
@@ -63,23 +65,14 @@ class Remote_joy(Node):
     def ros_spin_once(self):
         rclpy.spin_once(self)
 
-    def is_move_to_goal_complete(self):
-
-        if not self.action_result_future:
-            # task was cancelled or completed
-            return True
-
-        rclpy.spin_until_future_complete(self, self.action_result_future, timeout_sec =0.10)
-
-        if self.action_result_future.result():
-            self.action_status = self.action_result_future.result().status
-
-        if self.action_status != GoalStatus:
-            print('목표이동 성공: {0}'.format(self.action_status))
-            return True
 
     def nav2_goal_command(self,pose: list, orient: list):
         self.goal__msg = pose
+
+    def get_go_to_goal_result(self):
+        return self.action_status
+
+
 
 
     def joy_callback(self, joy_msg):
@@ -125,15 +118,21 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.position.y    = 0.46
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
+            self.to_pose_msg.pose.orientation.z = 0.0
+            self.to_pose_msg.pose.orientation.w = 0.0
 
             self.goal_msg.pose = self.to_pose_msg
+
             future = self.action_client.send_goal_async(self.goal_msg,
                                                         self.__navi_action_feedback_callback)
-            rclpy.spin_until_future_complete(self, future)
+
 
             self.action_goal_handle = future.result()
-            self.action_result_future = self.action_goal_handle.get_result_async()
+            if not self.action_goal_handle:#.accepted:
+                print('go to goal was rejected!')
+                return False
 
+            return True
 
         elif Follow_Waypoints_button_B == 1:     # 좌표가 저장된 버튼 (b)
             print("B지점으로 이동")
@@ -145,9 +144,8 @@ class Remote_joy(Node):
 
             future = self.action_client.send_goal_async(self.goal_msg,
                                                         self.__navi_action_feedback_callback)
-            rclpy.spin_until_future_complete(self, future)
+
             self.action_goal_handle = future.result()
-            self.action_result_future = self.action_goal_handle.get_result_async()
 
 
 
@@ -157,21 +155,12 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.position.y    = -0.011
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
-
             self.goal_msg.pose = self.to_pose_msg
+
             future = self.action_client.send_goal_async(self.goal_msg,
                                                         self.__navi_action_feedback_callback)
-            rclpy.spin_until_future_complete(self, future)
+
             self.action_goal_handle = future.result()
-
-            if not self.action_goal_handle.accepted:
-                print('목표에 도착하지 못했습니다!')
-                return False
-
-            self.action_result_future = self.action_goal_handle.get_result_async()
-
-            return BUTTON_INDEX_Safety_button
-
 
 
         elif Follow_Waypoints_button_Y == 1:      # 좌표가 저장된 버튼 (y)
@@ -184,15 +173,9 @@ class Remote_joy(Node):
             self.goal_msg.pose = self.to_pose_msg
             future = self.action_client.send_goal_async(self.goal_msg ,
                                                         self.__navi_action_feedback_callback)
-            rclpy.spin_until_future_complete(self, future)
+
             self.action_goal_handle = future.result()
-            if not self.action_goal_handle.accepted:
-                print('목표에 도착하지 못했습니다!')
-                return False
 
-            self.action_result_future = self.action_goal_handle.get_result_async()
-
-            return
 
 
 def main(args=None):
