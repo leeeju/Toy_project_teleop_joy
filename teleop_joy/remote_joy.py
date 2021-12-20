@@ -6,8 +6,6 @@ from rclpy.action import ActionClient
 from nav2_msgs.action import NavigateToPose
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, PoseStamped
-from action_msgs.msg import GoalStatus
-
 
 
 Controller_msg = '''
@@ -46,34 +44,13 @@ class Remote_joy(Node):
             'cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
             qos_profile)
 
-        self.action_client = ActionClient(
+        self.action_client = ActionClient(  #액션 클라이언트 생성
             self, action_type = NavigateToPose,
             action_name = '/navigate_to_pose')
-
-        #self.setDaemon(True)
-
-        self.action_result_future = None
-        self.action_feedback = None
-        self.action_status = None
-        self.__command_type_move = 1
-        self.__command_type_prevention = 2
 
     def __navi_action_feedback_callback(self, msg):
         self.feedback = msg.feedback
         return
-
-    def ros_spin_once(self):
-        rclpy.spin_once(self)
-
-
-    def nav2_goal_command(self,pose: list, orient: list):
-        self.goal__msg = pose
-
-    def get_go_to_goal_result(self):
-        return self.action_status
-
-
-
 
     def joy_callback(self, joy_msg):
 
@@ -94,8 +71,6 @@ class Remote_joy(Node):
         Follow_Waypoints_button_X   = joy_msg.buttons[3]
         Follow_Waypoints_button_Y   = joy_msg.buttons[4]
         Emergency_Speed = 0.0
-        #print("tset1")
-
 
         if BUTTON_INDEX_Safety_button == 1:
 
@@ -118,21 +93,10 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.position.y    = 0.46
             self.to_pose_msg.pose.orientation.x = 0.0
             self.to_pose_msg.pose.orientation.y = 0.0
-            self.to_pose_msg.pose.orientation.z = 0.0
-            self.to_pose_msg.pose.orientation.w = 0.0
-
             self.goal_msg.pose = self.to_pose_msg
 
-            future = self.action_client.send_goal_async(self.goal_msg,
-                                                        self.__navi_action_feedback_callback)
-
-
-            self.action_goal_handle = future.result()
-            if not self.action_goal_handle:#.accepted:
-                print('go to goal was rejected!')
-                return False
-
-            return True
+            self.action_client.send_goal_async(self.goal_msg,
+            self.__navi_action_feedback_callback)
 
         elif Follow_Waypoints_button_B == 1:     # 좌표가 저장된 버튼 (b)
             print("B지점으로 이동")
@@ -142,12 +106,8 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.orientation.y = 0.0
             self.goal_msg.pose = self.to_pose_msg
 
-            future = self.action_client.send_goal_async(self.goal_msg,
-                                                        self.__navi_action_feedback_callback)
-
-            self.action_goal_handle = future.result()
-
-
+            self.action_client.send_goal_async(self.goal_msg,
+            self.__navi_action_feedback_callback)
 
         elif Follow_Waypoints_button_X == 1:      # 좌표가 저장된 버튼 (x)
             print("X지점으로 이동")
@@ -157,11 +117,8 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.orientation.y = 0.0
             self.goal_msg.pose = self.to_pose_msg
 
-            future = self.action_client.send_goal_async(self.goal_msg,
-                                                        self.__navi_action_feedback_callback)
-
-            self.action_goal_handle = future.result()
-
+            self.action_client.send_goal_async(self.goal_msg,
+            self.__navi_action_feedback_callback)
 
         elif Follow_Waypoints_button_Y == 1:      # 좌표가 저장된 버튼 (y)
             print("Y지점으로 이동")
@@ -171,14 +128,12 @@ class Remote_joy(Node):
             self.to_pose_msg.pose.orientation.y = 0.0
 
             self.goal_msg.pose = self.to_pose_msg
-            future = self.action_client.send_goal_async(self.goal_msg ,
-                                                        self.__navi_action_feedback_callback)
-
-            self.action_goal_handle = future.result()
-
+            self.action_client.send_goal_async(self.goal_msg,
+            self.__navi_action_feedback_callback)
 
 
 def main(args=None):
+
     rclpy.init(args=args)
 
     remote_joy = Remote_joy()
