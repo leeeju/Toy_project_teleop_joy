@@ -1,15 +1,15 @@
-# ROS2_teleop_joy vr.2
+# ROS2_teleop_joy
 
 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
 
 조이스틱을 사용해서 터틀심 or 터틀봇 또는 기타 로봇을 제어 합니다 
 
-버전 2임으로 코드 정리가 아직 안됬습니다.
 
 ```bash
 수정 : 2021.12.09 네비게이션 클라이언트 추가
       2021.12.16 Follow_Waypoints_button 추가
        -> 문제점 최초 Waypoints로 이동은 하지만 그 이후 조작이 루프에 빠짐
+      2021.12.20 최종본  
 ```
 
 < 실행 절차 >
