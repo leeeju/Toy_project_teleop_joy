@@ -21,7 +21,7 @@ ros2 run joy joy_node
 ```
 
 ```bash
-turtle01@LeeJuHyun:~$ ros2 run joy joy_node 
+turtle01@turtle01:~$ ros2 run joy joy_node 
 [INFO]: No haptic (rumble) available, skipping initialization
 [INFO]: Opened joystick: EX Squad Air.  deadzone: 0.050000
 ```
@@ -37,7 +37,7 @@ turtle01@LeeJuHyun:~$ ros2 topic list
 /rosout
 ```
 
-그 다음  ``` ros2 topic echo /joy ``` 를 통해서 /joy의 관련 토픽이 발행되는 각각의 버튼값을 확인합니다 
+그 다음  ``` ros2 topic echo /joy ``` 를 통해서 ``` /joy ``` 의 관련 토픽이 발행되는 각각의 버튼값을 확인합니다 
 
 ```bash
 header:
