@@ -1,4 +1,4 @@
-# ROS2_teleop_joy
+# 간단하게 만들어 보는 ROS2_teleop_joy
 
 # 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
 
@@ -171,5 +171,5 @@ ros를 기본적으로 설치 할때 바이너리 설치를 통해 받아진 패
 sudo apt remove ros-foxy-teleop-twist-joy
 ```
 
-하면 된다
+하면 된다.
 
