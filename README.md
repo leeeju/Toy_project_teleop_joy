@@ -1,4 +1,4 @@
-# 간단하게 만들어 보는 ROS2_teleop_joy
+# ROS2_teleop_joy
 
 # 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
 
