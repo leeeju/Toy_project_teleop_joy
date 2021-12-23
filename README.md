@@ -83,6 +83,82 @@ ros2 launch nav2_bringup tb3_simulation_launch.py
 런치파일을 사용해서 시뮬레이션 월드를 불러와서 터틀봇이 움직이는지 확인해 봅시다
 
 
+
+```bash
+ elif Follow_Waypoints_button_A == 1:      # 좌표가 저장된 버튼 (a)
+            print("A지점으로 이동")
+            self.to_pose_msg.pose.position.x    = -1.7981275173738125   <--- position.x 좌표
+            self.to_pose_msg.pose.position.y    = -0.5336102444608362   <--- position.y 좌표
+            self.to_pose_msg.pose.orientation.z = 0.025922690997958475  <--- orientation.z 좌표
+            self.to_pose_msg.pose.orientation.w = 0.9996639505811062    <--- orientation.w 좌표
+
+            self.goal_msg.pose = self.to_pose_msg
+            self.action_client.send_goal_async(self.goal_msg, self.__navi_action_feedback_callback)
+```
+
+Rviz의 map 에서 현재 호봇의 좌표를 알고 싶을때는 ``` ros2 topic echo /amcl_pose ``` 를 사용하면 현재 로봇의 좌표를 알 수 있습니다 
+
+```bash
+
+turtle01@turtle01:~$ ros2 topic echo /amcl_pose 
+header:
+  stamp:
+    sec: 7041
+    nanosec: 400000000
+  frame_id: map
+pose:
+  pose:
+    position:
+      x: -1.8932298019702885
+      y: -0.5099666005587765
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.18195151273753174
+      w: 0.9833075037914253
+  covariance:
+  - 0.18300436874565307
+  - -0.013812092353768013
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - -0.013812092353768013
+  - 0.21193439804069364
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.05989193415480138
+---
+
+```
+
+
 ```bash
 < 로봇이 갑자기 움직이는것을 막기 위하여 LB 버튼을 누르고 조이스틱을 사용해야 움직이도록 만들었습니다 >
 ``` 
