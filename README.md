@@ -1,6 +1,6 @@
 # ROS2_teleop_joy
 
-구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
+# 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
 
 조이스틱을 사용해서 터틀심 or 터틀봇 또는 기타 로봇을 제어 합니다 
 
@@ -109,14 +109,14 @@ header:
 pose:
   pose:
     position:
-      x: -1.8932298019702885
-      y: -0.5099666005587765
+      x: -1.8932298019702885   <--- 현재 로봇의 x 좌표 
+      y: -0.5099666005587765   <--- 현재 로봇의 y 좌표
       z: 0.0
     orientation:
       x: 0.0
       y: 0.0
-      z: 0.18195151273753174
-      w: 0.9833075037914253
+      z: 0.18195151273753174   <--- 현재 로봇의 orientation z 좌표  
+      w: 0.9833075037914253    <--- 현재 로봇의 orientation w 좌표
   covariance:
   - 0.18300436874565307
   - -0.013812092353768013
