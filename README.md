@@ -96,7 +96,7 @@ ros2 launch nav2_bringup tb3_simulation_launch.py
             self.action_client.send_goal_async(self.goal_msg, self.__navi_action_feedback_callback)
 ```
 
-Rviz의 map 에서 현재 호봇의 좌표를 알고 싶을때는 ``` ros2 topic echo /amcl_pose ``` 를 사용하면 현재 로봇의 좌표를 알 수 있습니다 
+Rviz의 map 에서 현재 로봇의 좌표를 알고 싶을때는 ``` ros2 topic echo /amcl_pose ``` 를 사용하면 현재 로봇의 좌표를 알 수 있습니다 
 
 ```bash
 
