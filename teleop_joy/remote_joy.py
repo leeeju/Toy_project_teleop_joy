@@ -41,8 +41,8 @@ class Remote_joy(Node):
         
         self._twist_pub = self.create_publisher(
             Twist,
-            'cmd_vel',      # 'turtle1/cmd_vel' 터틀심test
-            qos_profile)
+            'turtle1/cmd_vel',      # '/cmd_vel' 로 변경하면 turtlebot3를 직접 조종 할 수 있다
+            qos_profile)   
 
         self.action_client = ActionClient(                #액션 클라이언트 생성
             self, action_type = NavigateToPose,
