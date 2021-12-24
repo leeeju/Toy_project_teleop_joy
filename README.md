@@ -149,5 +149,5 @@ ros를 기본적으로 설치 할때 바이너리 설치를 통해 받아진 패
 sudo apt remove ros-foxy-teleop-twist-joy
 ```
 
-하면 된다.
+하면 된다..
 
