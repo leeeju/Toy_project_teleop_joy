@@ -1,6 +1,6 @@
 # ROS2_teleop_joy
 
-# 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
+## 구성환경 : ubuntu20.04, ROS_foxy, PS3_EX aquad air, turtlebot3
 
 조이스틱을 사용해서 터틀심 or 터틀봇 또는 기타 로봇을 제어 합니다 
 
